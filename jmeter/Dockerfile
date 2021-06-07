@@ -1,11 +1,11 @@
 FROM alpine:latest
 
-ARG JMETER_VERSION="5.1"
+ARG JMETER_VERSION="5.4.1"
 
 ENV JMETER_HOME /opt/apache-jmeter-${JMETER_VERSION}
 ENV JMETER_BIN  ${JMETER_HOME}/bin
-ENV MIRROR_HOST http://mirrors.ocf.berkeley.edu/apache/jmeter
-ENV JMETER_DOWNLOAD_URL ${MIRROR_HOST}/binaries/apache-jmeter-${JMETER_VERSION}.tgz
+ENV MIRROR_HOST https://downloads.apache.org//jmeter/binaries/
+ENV JMETER_DOWNLOAD_URL ${MIRROR_HOST}/apache-jmeter-${JMETER_VERSION}.tgz
 ENV JMETER_PLUGINS_DOWNLOAD_URL http://repo1.maven.org/maven2/kg/apc
 ENV JMETER_PLUGINS_FOLDER ${JMETER_HOME}/lib/ext/
 
@@ -17,7 +17,7 @@ RUN apk update \
 	&& rm -rf /var/cache/apk/* \
 	&& mkdir -p /tmp/jmeter  \
 	&& curl -L --silent ${JMETER_DOWNLOAD_URL} >  /tmp/jmeter/apache-jmeter-${JMETER_VERSION}.tgz  \
-	&& mkdir -p /opt  \
+	&& mkdir -p /opt \
 	&& tar -xzf /tmp/jmeter/apache-jmeter-${JMETER_VERSION}.tgz -C /opt  \
 	&& rm -rf /tmp/jmeter
 
